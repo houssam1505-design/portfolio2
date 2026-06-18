@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Samo Dev</title>
+    <meta name="description" content="Get in touch with Houssam — CS student and web developer based in Oran, Algeria.">
+    <meta property="og:title" content="Contact | Samo Dev">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .contact-wrapper {
+            max-width:1100px; margin:0 auto;
+            padding:0 7% 8rem;
+            display:grid;
+            grid-template-columns:1fr 1.3fr;
+            gap:5rem; align-items:start;
+        }
+
+        /* ── Left: Info ── */
+        .contact-info { padding-top:0.5rem; }
+        .contact-info > p {
+            font-size:1rem; color:var(--text-muted);
+            line-height:1.8; margin-bottom:3rem;
+        }
+
+        .method-list { display:flex; flex-direction:column; gap:1.5rem; }
+
+        .method {
+            display:flex; align-items:center; gap:1.3rem;
+            padding:1.2rem 1.5rem;
+            background:var(--bg-card); border:1px solid var(--border);
+            border-radius:var(--r-md); transition:var(--t-mid);
+            text-decoration:none;
+        }
+        .method:hover { border-color:var(--primary-border); transform:translateX(6px); }
+
+        .method-icon {
+            width:44px; height:44px; border-radius:var(--r-sm);
+            background:var(--primary-soft); border:1px solid var(--primary-border);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--primary); font-size:1.1rem; flex-shrink:0;
+            transition:var(--t-mid);
+        }
+        .method:hover .method-icon { background:var(--primary); color:#fff; box-shadow:0 6px 16px var(--primary-glow); }
+
+        .method-text h4 {
+            font-size:0.72rem; color:var(--text-dim);
+            text-transform:uppercase; letter-spacing:0.1em;
+            margin-bottom:2px; font-weight:500;
+        }
+        .method-text span {
+            font-size:0.95rem; font-weight:600; color:var(--text-pure);
+        }
+
+        /* ── Right: Form ── */
+        .contact-form-box {
+            background:var(--bg-card); border:1px solid var(--border);
+            border-radius:var(--r-lg); padding:3rem;
+            box-shadow:var(--shadow-card);
+        }
+        .contact-form-box h3 {
+            font-size:1.4rem; margin-bottom:0.5rem;
+        }
+        .contact-form-box > p {
+            font-size:0.88rem; color:var(--text-muted); margin-bottom:2.5rem;
+        }
+
+        .form-row {
+            display:grid; grid-template-columns:1fr 1fr; gap:1rem;
+            margin-bottom:1.2rem;
+        }
+        .form-group { margin-bottom:1.2rem; }
+
+        .form-label {
+            display:block; font-size:0.82rem; font-weight:600;
+            color:var(--text-main); margin-bottom:0.5rem;
+            font-family:'JetBrains Mono',monospace; letter-spacing:0.03em;
+        }
+        .form-label .req { color:var(--primary); margin-left:2px; }
+
+        .form-control {
+            width:100%; padding:11px 14px;
+            background:var(--bg-subtle); border:1px solid var(--border);
+            border-radius:var(--r-sm); color:var(--text-pure);
+            font-family:'DM Sans',sans-serif; font-size:0.93rem;
+            transition:var(--t-fast); outline:none;
+        }
+        .form-control::placeholder { color:var(--text-dim); }
+        .form-control:focus {
+            border-color:var(--primary-border);
+            background:var(--bg-card);
+            box-shadow:0 0 0 3px var(--primary-soft);
+        }
+        .form-control.error { border-color:#ef4444; }
+        .form-error { font-size:0.78rem; color:#ef4444; margin-top:4px; display:none; }
+        .form-error.show { display:block; }
+
+        textarea.form-control { resize:vertical; min-height:130px; }
+
+        .submit-btn { width:100%; margin-top:1.2rem; justify-content:center; padding:0.85rem; }
+        .submit-btn .spinner {
+            width:16px; height:16px; border:2px solid rgba(255,255,255,0.3);
+            border-top-color:#fff; border-radius:50%;
+            animation:spin 0.7s linear infinite; display:none;
+        }
+        @keyframes spin { to{transform:rotate(360deg)} }
+
+        /* Success / Error messages */
+        .form-message {
+            padding:1rem 1.4rem; border-radius:var(--r-sm);
+            font-size:0.9rem; margin-top:1rem;
+            display:none; align-items:center; gap:10px;
+        }
+        .form-message.success {
+            background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); color:#22c55e;
+        }
+        .form-message.fail {
+            background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#ef4444;
+        }
+        .form-message.show { display:flex; }
+
+        /* Note about Formspree */
+        .formspree-note {
+            margin-top:1rem; font-size:0.75rem; color:var(--text-dim);
+            text-align:center; font-family:'JetBrains Mono',monospace;
+        }
+        .formspree-note a { color:var(--primary); text-decoration:none; }
+
+        @media(max-width:900px) {
+            .contact-wrapper { grid-template-columns:1fr; gap:3rem; }
+            .contact-form-box { padding:2rem; }
+        }
+        @media(max-width:768px) {
+            .form-row { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="closeMenu()">Overview</a>
+    <a href="projects.html" onclick="closeMenu()">Projects</a>
+    <a href="formation.html" onclick="closeMenu()">Experience</a>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
+    <a href="chat.html" onclick="closeMenu()" style="color: var(--primary);">samo.AI</a>
+</div>
+
+<nav class="navbar" id="navbar">
+    <a href="index.html" class="logo">Samo<span>.</span>dev</a>
+    <ul class="nav-links">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="formation.html">Experience</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="chat.html" style="color: var(--primary); font-weight: 700;">samo.AI <i class="fa-solid fa-sparkles"></i></a></li>
+    </ul>
+    <a href="mailto:houssamicloud1505@gmail.com" class="btn btn-primary">Hire Me</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<header class="page-header">
+    <span class="label reveal">Contact</span>
+    <h1 class="reveal delay-1">Let's Start a<br>Conversation.</h1>
+    <p class="reveal delay-2">Open to web development projects, collaborations, or just a good chat about tech.</p>
+</header>
+
+<div class="contact-wrapper">
+
+    <!-- Left -->
+    <div class="contact-info reveal delay-1">
+        <p>
+            The best way to reach me is by email — I typically respond within 24 hours.
+            You can also connect on LinkedIn or check out my code on GitHub.
+        </p>
+
+        <div class="method-list">
+            <a href="mailto:samo.dev.1505@gmail.com" class="method">
+                <div class="method-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="method-text">
+                    <h4>Email</h4>
+                    <span>samo.dev.1505@gmail.com</span>
+                </div>
+            </a>
+            <a href="https://www.linkedin.com/in/houssam-parp-480678380/" target="_blank" class="method">
+                <div class="method-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+                <div class="method-text">
+                    <h4>LinkedIn</h4>
+                    <span>Connect with me</span>
+                </div>
+            </a>
+            <a href="https://github.com/Dev-Samo" target="_blank" class="method">
+                <div class="method-icon"><i class="fa-brands fa-github"></i></div>
+                <div class="method-text">
+                    <h4>GitHub</h4>
+                    <span>Dev-Samo</span>
+                </div>
+            </a>
+            <div class="method" style="cursor:default">
+                <div class="method-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="method-text">
+                    <h4>Location</h4>
+                    <span>Oran, Algeria (USTO-MB)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Form -->
+    <!--
+        FORMSUBMIT SETUP:
+        1. Form automatically sends to: houssamicloud1505@gmail.com
+        2. IMPORTANT: First time someone sends a message, you will receive an activation email!
+        3. You MUST click "Activate" in that email for future messages to arrive.
+    -->
+    <div class="contact-form-box reveal delay-2">
+        <h3>Send a Message</h3>
+        <p>Fill in the form and I'll get back to you as soon as possible.</p>
+
+        <form id="contactForm" action="https://formsubmit.co/houssamicloud1505@gmail.com" method="POST" novalidate>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fname" class="form-label">First Name <span class="req">*</span></label>
+                    <input type="text" id="fname" name="first_name" class="form-control"
+                           placeholder="Houssam" required autocomplete="given-name">
+                    <span class="form-error" id="fnameErr">Please enter your first name.</span>
+                </div>
+                <div class="form-group">
+                    <label for="lname" class="form-label">Last Name <span class="req">*</span></label>
+                    <input type="text" id="lname" name="last_name" class="form-control"
+                           placeholder="samo" required autocomplete="family-name">
+                    <span class="form-error" id="lnameErr">Please enter your last name.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address <span class="req">*</span></label>
+                <input type="email" id="email" name="email" class="form-control"
+                       placeholder="you@example.com" required autocomplete="email">
+                <span class="form-error" id="emailErr">Please enter a valid email address.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="subject" class="form-label">Subject <span class="req">*</span></label>
+                <input type="text" id="subject" name="subject" class="form-control"
+                       placeholder="Web project, collaboration..." required>
+                <span class="form-error" id="subjectErr">Please enter a subject.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="message" class="form-label">Message <span class="req">*</span></label>
+                <textarea id="message" name="message" class="form-control"
+                          placeholder="Tell me about your project or idea..." required></textarea>
+                <span class="form-error" id="messageErr">Please enter a message.</span>
+            </div>
+
+            <!-- Hidden fields for Formsubmit configuration -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="text" name="_gotcha" style="display:none">
+
+            <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
+                <span id="btnText"><i class="fa-solid fa-paper-plane"></i> Send Message</span>
+                <span class="spinner" id="spinner"></span>
+            </button>
+
+            <div class="form-message success" id="successMsg">
+                <i class="fa-solid fa-circle-check"></i>
+                Message sent! I'll get back to you within 24 hours.
+            </div>
+            <div class="form-message fail" id="failMsg">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Something went wrong. Please email me directly at houssamicloud1505@gmail.com
+            </div>
+        </form>
+
+       
+    </div>
+</div>
+
+<footer>
+    <div class="foot-logo">Samo<span>.</span>dev</div>
+    <ul class="foot-links">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="formation.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-socials">
+        <a href="https://github.com/houssam1505-design" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/houssam-parp-480678380/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="mailto:houssamicloud1505@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+    <p class="copy">&copy; 2026 Samo Dev. All rights reserved.</p>
+</footer>
+
+<script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+
+    // Hamburger
+    const ham = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+        ham.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMenu() {
+        ham.classList.remove('open'); mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Form validation + Formspree submission
+    const form = document.getElementById('contactForm');
+    const fields = [
+        { id:'fname',   errId:'fnameErr',   check: v => v.trim().length > 0 },
+        { id:'lname',   errId:'lnameErr',   check: v => v.trim().length > 0 },
+        { id:'email',   errId:'emailErr',   check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+        { id:'subject', errId:'subjectErr', check: v => v.trim().length > 0 },
+        { id:'message', errId:'messageErr', check: v => v.trim().length > 10 },
+    ];
+
+    // Live validation
+    fields.forEach(f => {
+        const el = document.getElementById(f.id);
+        el.addEventListener('blur', () => validateField(f));
+        el.addEventListener('input', () => {
+            if(el.classList.contains('error')) validateField(f);
+        });
+    });
+
+    function validateField(f) {
+        const el  = document.getElementById(f.id);
+        const err = document.getElementById(f.errId);
+        const ok  = f.check(el.value);
+        el.classList.toggle('error', !ok);
+        err.classList.toggle('show', !ok);
+        return ok;
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Validate all
+        const valid = fields.every(f => validateField(f));
+        if(!valid) return;
+
+        // Loading state
+        const btn     = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const spinner = document.getElementById('spinner');
+        btn.disabled   = true;
+        btnText.style.display = 'none';
+        spinner.style.display = 'block';
+
+        document.getElementById('successMsg').classList.remove('show');
+        document.getElementById('failMsg').classList.remove('show');
+
+        try {
+            const res = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if(res.ok) {
+                document.getElementById('successMsg').classList.add('show');
+                form.reset();
+                fields.forEach(f => {
+                    document.getElementById(f.id).classList.remove('error');
+                    document.getElementById(f.errId).classList.remove('show');
+                });
+            } else {
+                document.getElementById('failMsg').classList.add('show');
+            }
+        } catch {
+            document.getElementById('failMsg').classList.add('show');
+        } finally {
+            btn.disabled  = false;
+            btnText.style.display = '';
+            spinner.style.display = 'none';
+        }
+    });
+
+    // Reveal
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience | Samo Dev</title>
+    <meta name="description" content="Academic background and professional experience of Houssam — CS student at USTO-MB.">
+    <meta property="og:title" content="Experience | Samo Dev">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .exp-wrapper {
+            max-width:900px; margin:0 auto;
+            padding:0 7% 8rem;
+        }
+
+        /* ── Stats Row ── */
+        .stats-row {
+            display:grid; grid-template-columns:repeat(3,1fr);
+            gap:1px; background:var(--border);
+            border-radius:var(--r-lg); overflow:hidden;
+            margin-bottom:4rem;
+        }
+        .stat-box {
+            background:var(--bg-card); padding:2rem;
+            text-align:center;
+        }
+        .stat-box .num {
+            font-size:2.5rem; font-weight:800; color:var(--text-pure);
+            font-family:'Playfair Display',serif;
+        }
+        .stat-box .num span { color:var(--primary); }
+        .stat-box .desc { font-size:0.85rem; color:var(--text-muted); margin-top:0.3rem; }
+
+        /* ── Timeline ── */
+        .section-title {
+            font-size:1rem; font-weight:700; color:var(--text-pure);
+            margin-bottom:1.5rem; padding-bottom:0.8rem;
+            border-bottom:1px solid var(--border);
+            display:flex; align-items:center; gap:10px;
+        }
+        .section-title i { color:var(--primary); }
+
+        .timeline { position:relative; padding-left:0; }
+
+        .tl-item {
+            background:var(--bg-card);
+            border:1px solid var(--border);
+            border-radius:var(--r-lg);
+            padding:2.5rem;
+            margin-bottom:1.5rem;
+            transition:var(--t-mid);
+            position:relative;
+            display:grid;
+            grid-template-columns:130px 1fr;
+            gap:2rem;
+        }
+        .tl-item::after {
+            content:''; position:absolute;
+            left:0; top:24px; bottom:24px; width:3px;
+            background:var(--primary);
+            border-radius:0 3px 3px 0;
+            opacity:0; transition:var(--t-mid);
+        }
+        .tl-item:hover { border-color:var(--primary-border); transform:translateX(6px); box-shadow:var(--shadow-hover); }
+        .tl-item:hover::after { opacity:1; }
+
+        .tl-date-col {
+            border-right:1px solid var(--border);
+            padding-right:2rem; padding-top:4px;
+        }
+        .tl-date {
+            font-family:'JetBrains Mono',monospace;
+            font-size:0.78rem; font-weight:500;
+            color:var(--primary); background:var(--primary-soft);
+            border:1px solid var(--primary-border);
+            padding:5px 10px; border-radius:var(--r-sm);
+            display:inline-block; line-height:1.3;
+        }
+
+        .tl-content h3 { font-size:1.35rem; margin-bottom:0.3rem; }
+        .tl-content .sub {
+            font-size:0.9rem; color:var(--text-muted);
+            margin-bottom:1.2rem; display:flex; align-items:center; gap:6px;
+        }
+        .tl-content .sub i { color:var(--primary); font-size:0.8rem; }
+        .tl-content p { font-size:0.93rem; color:var(--text-muted); line-height:1.75; margin-bottom:1.3rem; }
+        .tl-tags { display:flex; flex-wrap:wrap; gap:0.5rem; }
+
+        /* ── Goals Section ── */
+        .goals-grid {
+            display:grid; grid-template-columns:repeat(2,1fr);
+            gap:1.5rem; margin-top:1.5rem;
+        }
+        .goal-card {
+            background:var(--bg-card); border:1px solid var(--border);
+            border-radius:var(--r-md); padding:1.8rem;
+            transition:var(--t-mid);
+        }
+        .goal-card:hover { border-color:var(--primary-border); transform:translateY(-4px); }
+        .goal-card .goal-icon {
+            width:42px; height:42px; border-radius:var(--r-sm);
+            background:var(--primary-soft); border:1px solid var(--primary-border);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--primary); font-size:1.1rem; margin-bottom:1rem;
+        }
+        .goal-card h4 { font-size:1rem; margin-bottom:0.5rem; }
+        .goal-card p  { font-size:0.85rem; color:var(--text-muted); line-height:1.65; }
+
+        @media(max-width:768px) {
+            .stats-row { grid-template-columns:1fr; }
+            .tl-item { grid-template-columns:1fr; gap:1rem; padding:1.8rem; }
+            .tl-date-col { border-right:none; border-bottom:1px solid var(--border); padding-right:0; padding-bottom:1rem; }
+            .goals-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="closeMenu()">Overview</a>
+    <a href="projects.html" onclick="closeMenu()">Projects</a>
+    <a href="formation.html" onclick="closeMenu()">Experience</a>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
+    <a href="chat.html" onclick="closeMenu()" style="color: var(--primary);">samo.AI</a>
+</div>
+
+<nav class="navbar" id="navbar">
+    <a href="index.html" class="logo">Samo<span>.</span>dev</a>
+    <ul class="nav-links">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="formation.html" class="active">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="chat.html" style="color: var(--primary); font-weight: 700;">samo.AI <i class="fa-solid fa-sparkles"></i></a></li>
+    </ul>
+    <a href="mailto:houssamicloud1505@gmail.com" class="btn btn-primary">Hire Me</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<header class="page-header">
+    <span class="label reveal">Journey</span>
+    <h1 class="reveal delay-1">Academic &<br>Professional Path.</h1>
+    <p class="reveal delay-2">Where I've studied, what I've learned, and where I'm headed.</p>
+</header>
+
+<div class="exp-wrapper">
+
+    <!-- Stats -->
+    <div class="stats-row reveal">
+        <div class="stat-box">
+            <div class="num">3<span>nd</span></div>
+            <div class="desc">Year Computer Science</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">6<span>+</span></div>
+            <div class="desc">Technologies Learned</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">3<span>+</span></div>
+            <div class="desc">Organizations Involved</div>
+        </div>
+    </div>
+
+    <!-- Education -->
+    <div class="section-title reveal">
+        <i class="fa-solid fa-graduation-cap"></i> Education
+    </div>
+
+    <div class="timeline">
+        <div class="tl-item reveal delay-1">
+            <div class="tl-date-col">
+                <span class="tl-date">2024 — Present</span>
+            </div>
+            <div class="tl-content">
+                <h3>Computer Science — L3</h3>
+                <div class="sub">
+                    <i class="fa-solid fa-building-columns"></i>
+                    USTO-MB University, Oran
+                </div>
+                <p>
+                    L3 CS student covering core topics: algorithms and data structures,
+                    object-oriented programming (Java, C++), relational databases (MySQL),
+                    computer networks, web development (HTML, CSS, JS, PHP), and Linux systems.
+                    Applying theory through labs, coursework, and personal projects.
+                </p>
+                <div class="tl-tags">
+                    <span class="badge">C / C++ / c#</span>
+                    <span class="badge">flutter</span>
+                    <span class="badge">node.js</span>
+                    <span class="badge">Java</span>
+                    <span class="badge">Algorithms</span>
+                    <span class="badge">MySQL</span>
+                    <span class="badge">postgresql</span>
+                    <span class="badge">Networks</span>
+                    <span class="badge">HTML/CSS/JS</span>
+                    <span class="badge">PHP</span>
+                    <span class="badge">Linux</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional -->
+    <div class="section-title reveal" style="margin-top:3rem">
+        <i class="fa-solid fa-briefcase"></i> Experience & Activities
+    </div>
+
+    <div class="timeline">
+        <div class="tl-item reveal delay-1">
+            <div class="tl-date-col">
+                <span class="tl-date">2024 — Now</span>
+            </div>
+            <div class="tl-content">
+                <h3>Freelance Web Developer</h3>
+                <div class="sub">
+                    <i class="fa-solid fa-globe"></i>
+                    Self-employed
+                </div>
+                <p>
+                    Building small web projects for clients and personal portfolio. Focus on
+                    responsive design, clean HTML/CSS, and functional PHP back-ends. Sharing
+                    all open-source work on GitHub.
+                </p>
+                <div class="tl-tags">
+                    <span class="badge">HTML/CSS</span>
+                    <span class="badge">JavaScript</span>
+                    <span class="badge">PHP</span>
+                    <span class="badge">GitHub</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tl-item reveal delay-2">
+            <div class="tl-date-col">
+                <span class="tl-date">2023 — 2024</span>
+            </div>
+            <div class="tl-content">
+                <h3>Member — AIESEC & STEAM World Learning</h3>
+                <div class="sub">
+                    <i class="fa-solid fa-users"></i>
+                    Oran, Algeria
+                </div>
+                <p>
+                    Active member of AIESEC and STEAM World Learning. Developed communication,
+                    teamwork, and leadership skills through collaborative projects and events.
+                    Gained experience in sales and direct customer interaction.
+                </p>
+                <div class="tl-tags">
+                    <span class="badge">AIESEC</span>
+                    <span class="badge">STEAM World Learning</span>
+                    <span class="badge">Communication</span>
+                    <span class="badge">Teamwork</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goals (replaces "Future" entries) -->
+    <div class="section-title reveal" style="margin-top:3rem">
+        <i class="fa-solid fa-crosshairs"></i> Goals & Direction
+    </div>
+    <p class="reveal" style="color:var(--text-muted); font-size:0.95rem; margin-bottom:2rem;">
+        Where I'm aiming to grow in the next few years.
+    </p>
+
+    <div class="goals-grid">
+        <div class="goal-card reveal delay-1">
+            <div class="goal-icon"><i class="fa-solid fa-brain"></i></div>
+            <h4>AI & Machine Learning</h4>
+            <p>Exploring the intersection of web interfaces and AI. Planning to build projects that integrate ML models into practical applications.</p>
+        </div>
+        <div class="goal-card reveal delay-2">
+            <div class="goal-icon"><i class="fa-solid fa-server"></i></div>
+            <h4>Full-Stack Development</h4>
+            <p>Moving toward production-grade full-stack skills — React, Node.js, Docker, and cloud deployment.</p>
+        </div>
+        <div class="goal-card reveal delay-3">
+            <div class="goal-icon"><i class="fa-brands fa-github"></i></div>
+            <h4>Open Source Contributions</h4>
+            <p>Contributing to open-source projects to gain real-world experience and collaborate with other developers globally.</p>
+        </div>
+        <div class="goal-card reveal delay-4">
+            <div class="goal-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <h4>Internship / Junior Role</h4>
+            <p>Actively looking for internship or junior developer opportunities to apply my skills in a professional environment.</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <div class="foot-logo">Samo<span>.</span>dev</div>
+    <ul class="foot-links">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="formation.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-socials">
+        <a href="https://github.com/houssam1505-design" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/houssam-parp-480678380/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="mailto:houssamicloud1505@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+    <p class="copy">&copy; 2026 Samo Dev. All rights reserved.</p>
+</footer>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+    const ham = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+        ham.classList.toggle('open'); menu.classList.toggle('open');
+        document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMenu() {
+        ham.classList.remove('open'); menu.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

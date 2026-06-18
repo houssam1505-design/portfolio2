@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houssam — CS Student & Developer</title>
+    <meta name="description" content="Houssam is a Computer Science student at USTO-MB, Oran, building web apps and exploring AI. Available for projects.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Houssam — CS Student & Developer">
+    <meta property="og:description" content="Building websites, applications and exploring programming. Based in Oran, Algeria.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Hero ── */
+        .hero {
+            min-height:100vh;
+            display:flex; align-items:center;
+            padding:0 7%;
+            position:relative; overflow:hidden;
+        }
+        .hero-layout {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:5rem; align-items:center;
+            width:100%; padding-top:10vh;
+        }
+        .status-badge {
+            display:inline-flex; align-items:center; gap:8px;
+            padding:6px 16px; border-radius:var(--r-pill);
+            background:var(--primary-soft); border:1px solid var(--primary-border);
+            font-size:0.82rem; font-weight:500; color:var(--primary);
+            margin-bottom:2rem; font-family:'JetBrains Mono',monospace;
+        }
+        .status-badge .dot {
+            width:7px; height:7px; border-radius:50%;
+            background:var(--primary);
+            animation:pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%   { box-shadow:0 0 0 0 rgba(108,99,255,0.5); }
+            70%  { box-shadow:0 0 0 8px rgba(108,99,255,0); }
+            100% { box-shadow:0 0 0 0 rgba(108,99,255,0); }
+        }
+        .hero h1 {
+            font-size:clamp(3rem,5.5vw,4.8rem);
+            font-weight:800; line-height:1.08;
+            margin-bottom:1.5rem;
+        }
+        .hero h1 em {
+            font-style:normal; color:var(--primary);
+            font-family:'Playfair Display',serif;
+        }
+        .hero-desc {
+            font-size:1.1rem; color:var(--text-muted);
+            max-width:500px; margin-bottom:2.5rem; line-height:1.8;
+        }
+        .btn-group { display:flex; gap:1rem; flex-wrap:wrap; }
+
+        /* Avatar */
+        .hero-visual {
+            display:flex; align-items:center; justify-content:center;
+            position:relative;
+        }
+        .avatar-wrap {
+            width:300px; height:300px;
+            position:relative; display:flex;
+            align-items:center; justify-content:center;
+        }
+        /* Glow ring */
+        .avatar-wrap::before {
+            content:''; position:absolute; inset:-12px;
+            border-radius:50%;
+            background:conic-gradient(from 0deg, var(--primary), transparent 40%, var(--primary) 60%, transparent);
+            animation:spin 8s linear infinite;
+            opacity:0.3;
+        }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .avatar-wrap img {
+            width:100%; height:100%;
+            object-fit:cover; border-radius:50%;
+            position:relative; z-index:2;
+            border:3px solid var(--bg-card);
+        }
+        /* Fallback if no image */
+        .avatar-fallback {
+            width:100%; height:100%; border-radius:50%;
+            background:var(--bg-card); border:2px solid var(--border);
+            display:flex; align-items:center; justify-content:center;
+            font-size:5rem; color:var(--primary);
+            position:relative; z-index:2;
+        }
+        /* Floating Stat Cards */
+        .stat-card {
+            position:absolute;
+            background:var(--bg-card); border:1px solid var(--border);
+            border-radius:var(--r-md); padding:10px 16px;
+            backdrop-filter:blur(10px);
+            box-shadow:var(--shadow-card);
+            z-index:10;
+        }
+        .stat-card .val {
+            font-size:1.4rem; font-weight:700; color:var(--text-pure);
+            line-height:1;
+        }
+        .stat-card .lbl {
+            font-size:0.72rem; color:var(--text-muted);
+            font-family:'JetBrains Mono',monospace; margin-top:2px;
+        }
+        .stat-card.s1 { bottom:-10px; left:-20px; animation:float1 4s ease-in-out infinite; }
+        .stat-card.s2 { top:10px; right:-30px; animation:float2 5s ease-in-out infinite; }
+        @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+        /* ── Skills Strip ── */
+        .skills-strip {
+            padding:4rem 7% 5rem;
+            border-top:1px solid var(--border);
+            border-bottom:1px solid var(--border);
+        }
+        .skills-strip p {
+            font-size:0.78rem; color:var(--text-dim);
+            font-family:'JetBrains Mono',monospace;
+            text-transform:uppercase; letter-spacing:0.1em;
+            margin-bottom:1.5rem;
+        }
+        .skills-list { display:flex; flex-wrap:wrap; gap:0.7rem; }
+
+        /* ── Services Grid ── */
+        .services-section {
+            padding:7rem 7%;
+            max-width:1200px; margin:0 auto;
+        }
+        .services-header { text-align:center; max-width:600px; margin:0 auto 4.5rem; }
+        .services-header h2 { font-size:clamp(2rem,4vw,3rem); font-weight:800; margin-bottom:1rem; }
+        .services-header p { color:var(--text-muted); line-height:1.75; }
+
+        .services-grid {
+            display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px;
+            background:var(--border); border-radius:var(--r-lg); overflow:hidden;
+        }
+        .service-card {
+            background:var(--bg-card); padding:3rem 2.5rem;
+            transition:var(--t-mid); position:relative; overflow:hidden;
+        }
+        .service-card::after {
+            content:''; position:absolute;
+            bottom:0; left:0; right:0; height:2px;
+            background:var(--primary); transform:scaleX(0);
+            transform-origin:left; transition:transform 0.35s ease;
+        }
+        .service-card:hover { background:var(--bg-card-hover); }
+        .service-card:hover::after { transform:scaleX(1); }
+        .service-icon {
+            width:52px; height:52px; border-radius:var(--r-md);
+            background:var(--primary-soft); border:1px solid var(--primary-border);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--primary); font-size:1.3rem; margin-bottom:2rem;
+            transition:var(--t-mid);
+        }
+        .service-card:hover .service-icon {
+            background:var(--primary); color:#fff;
+            box-shadow:0 8px 20px var(--primary-glow);
+        }
+        .service-card h3 { font-size:1.2rem; margin-bottom:0.8rem; }
+        .service-card p  { font-size:0.92rem; color:var(--text-muted); line-height:1.7; }
+
+        /* ── CTA Band ── */
+        .cta-band {
+            margin:0 7% 7rem;
+            background:var(--bg-card);
+            border:1px solid var(--border);
+            border-radius:var(--r-lg);
+            padding:4rem 5rem;
+            display:flex; align-items:center;
+            justify-content:space-between; gap:3rem;
+            position:relative; overflow:hidden;
+        }
+        .cta-band::before {
+            content:''; position:absolute; inset:0;
+            background:radial-gradient(ellipse 60% 80% at 0% 50%, rgba(108,99,255,0.07), transparent);
+        }
+        .cta-band h2 { font-size:clamp(1.6rem,3vw,2.2rem); font-weight:800; max-width:420px; }
+        .cta-band h2 span { color:var(--primary); }
+        .cta-btns { display:flex; gap:1rem; flex-shrink:0; }
+
+        /* ── Responsive ── */
+        @media(max-width:992px) {
+            .hero-layout { grid-template-columns:1fr; text-align:center; gap:3rem; padding-top:14vh; }
+            .hero-desc, .btn-group { margin-left:auto; margin-right:auto; }
+            .btn-group { justify-content:center; }
+            .avatar-wrap { width:240px; height:240px; }
+            .services-grid { grid-template-columns:1fr; }
+            .cta-band { flex-direction:column; text-align:center; padding:3rem 2rem; }
+        }
+        @media(max-width:768px) {
+            .hero { padding:0 5%; }
+            .skills-strip { padding:3rem 5%; }
+            .services-section { padding:5rem 5%; }
+            .cta-band { margin:0 5% 5rem; }
+            .stat-card.s2 { right:-10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="closeMenu()">Overview</a>
+    <a href="projects.html" onclick="closeMenu()">Projects</a>
+    <a href="formation.html" onclick="closeMenu()">Experience</a>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
+</div>
+
+<nav class="navbar" id="navbar">
+    <a href="index.html" class="logo">Samo<span>.</span>dev</a>
+    <ul class="nav-links">
+        <li><a href="index.html" class="active">Overview</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="formation.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="chat.html" style="color: var(--primary); font-weight: 700;">samo.AI <i class="fa-solid fa-sparkles"></i></a></li>
+    </ul>
+    <a href="mailto:houssamicloud1505@gmail.com" class="btn btn-primary">Hire Me</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+    <div class="hero-layout">
+        <div class="hero-content">
+            <div class="status-badge reveal">
+                <div class="dot"></div>
+                Available for projects
+            </div>
+            <h1 class="reveal delay-1">
+                I'm <em>Houssam</em>,<br>
+                CS Student &<br>
+                Web Developer.
+            </h1>
+            <p class="hero-desc reveal delay-2">
+               L3 Computer Science student at USTO-MB, Oran.
+                I build web applications, explore databases & networks,
+                and share everything on GitHub.
+            </p>
+            <div class="btn-group reveal delay-3">
+                <a href="projects.html" class="btn btn-primary">
+                    <i class="fa-solid fa-folder-open"></i> View Projects
+                </a>
+                <a href="contact.html" class="btn btn-ghost">
+                    Get in touch
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual reveal delay-2">
+            <div class="avatar-wrap">
+                <img src="5877526182255857099.jpg" alt="Houssam"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="avatar-fallback" style="display:none">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <!-- Floating stat cards -->
+                <div class="stat-card s1">
+                    <div class="val">3nd</div>
+                    <div class="lbl">Year CS</div>
+                </div>
+                <div class="stat-card s2">
+                    <div class="val">10+</div>
+                    <div class="lbl">Technologies</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ── Skills Strip ── -->
+<div class="skills-strip reveal">
+    <p>Technologies I work with</p>
+    <div class="skills-list">
+       <span class="badge">C / C++ / C#</span>
+            <span class="badge">flutter</span>
+           <span class="badge">node.js</span>
+        <span class="badge">Java</span>
+                    <span class="badge">Algorithms</span>
+         <span class="badge">MySQL</span>
+                    <span class="badge">postgresql</span>
+         <span class="badge">Networks</span>
+                    <span class="badge">HTML/CSS/JS</span>
+                    <span class="badge">PHP</span>
+                    <span class="badge">Linux</span>
+    </div>
+</div>
+
+<!-- ── Services ── -->
+<section class="services-section">
+    <div class="services-header reveal">
+        <span class="label">What I Do</span>
+        <h2>What I bring<br>to the table.</h2>
+        <p>Skills I've built through coursework, personal projects, and hands-on experience.</p>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-card reveal delay-1">
+            <div class="service-icon"><i class="fa-solid fa-code"></i></div>
+            <h3>Web Development</h3>
+            <p>Building responsive websites using HTML, CSS, JavaScript, and PHP. Focus on clean, functional interfaces that actually work.</p>
+        </div>
+        <div class="service-card reveal delay-2">
+            <div class="service-icon"><i class="fa-solid fa-database"></i></div>
+            <h3>Databases & Back-End</h3>
+            <p>Designing and managing databases (MySQL), connecting them to server-side logic using PHP and Java.</p>
+        </div>
+        <div class="service-card reveal delay-3">
+            <div class="service-icon"><i class="fa-solid fa-network-wired"></i></div>
+            <h3>Algorithms & Systems</h3>
+            <p>Strong foundation in algorithms, data structures, OS concepts and networking learned through intensive coursework in C, C++, and Java.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="cta-band reveal">
+    <h2>Ready to start a<br><span>project together?</span></h2>
+    <div class="cta-btns">
+        <a href="contact.html" class="btn btn-primary">Let's Talk</a>
+        <a href="projects.html" class="btn btn-ghost">See My Work</a>
+    </div>
+</div>
+
+<footer>
+    <div class="foot-logo">Samo<span>.</span>dev</div>
+    <ul class="foot-links">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="formation.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-socials">
+        <a href="https://github.com/houssam1505-design" target="_blank" aria-label="GitHub">
+            <i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/houssam-parp-480678380/" target="_blank" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="mailto:houssamicloud1505@gmail.com" aria-label="Email">
+            <i class="fa-solid fa-envelope"></i></a>
+    </div>
+    <p class="copy">&copy; 2026 Samo Dev. All rights reserved.</p>
+</footer>
+
+<script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Hamburger
+    const ham = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+        ham.classList.toggle('open');
+        menu.classList.toggle('open');
+        document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMenu() {
+        ham.classList.remove('open');
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Reveal
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
